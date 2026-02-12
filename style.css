@@ -1,70 +1,222 @@
-/* ================================
-   AJIROTYPE — Base / Typography
-   Optimized font rendering + global text color
-   ================================ */
+/* =========================================================
+   AJIRO — STYLE SYSTEM
+   Goal: minimal, consistent, and predictable.
+   ========================================================= */
 
-/* Load font correctly */
+/* =========================
+   FONT
+   ========================= */
 @font-face {
-  font-family: 'Ajirotype';
-  src: url('Ajirotype.otf') format('opentype');
+  font-family: "Ajirotype";
+  src: url("Ajirotype.otf") format("opentype");
+  font-weight: normal;
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
 }
 
-/* Predictable sizing */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* =========================
+   TOKENS / VARIABLES
+   ========================= */
+:root {
+  --aji-gray: #b3b3b3;
+  --header-h: 60px;
+  --footer-h: 60px;
 }
 
-/* Root text color control */
-html {
-  -webkit-text-size-adjust: 100%;
-  color: #b3b3b3;
-}
-
-/* Core page defaults */
-body {
+/* =========================
+   BASE RESET
+   ========================= */
+* {
   margin: 0;
-  font-family: 'Ajirotype', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  background: #fcfcfc;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ajirotype", sans-serif;
+  color: var(--aji-gray);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden; /* home page behavior (page 2 overrides below) */
+}
+
+/* =========================
+   VIDEO BACKGROUND (HOME)
+   ========================= */
+video {
+  position: fixed;
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;              /* keep video behind all UI */
+  pointer-events: none;     /* video never blocks clicks */
+  background: #ffffff;
+}
+
+.bg {
+  width: 100%;
+  height: 100vh;
+}
+
+/* =========================
+   LAYOUT SPACING (HOME)
+   ========================= */
+.content {
+  padding-top: var(--header-h);
+  padding-bottom: var(--footer-h);
+}
+
+/* =========================
+   HERO (HOME)
+   ========================= */
+.hero {
+  height: calc(100vh - var(--header-h) - var(--footer-h));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  line-height: 1.35;
-
-  /* Sharp geometric font rendering */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
 }
 
-/* Force ALL typography to inherit the gray */
-body,
-h1, h2, h3, h4, h5, h6,
-p, span, small,
-strong, b,
-a, li, label,
-input, textarea, button {
-  color: inherit;
-  font-family: inherit;
-  font-weight: 400;
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.4rem;
 }
 
-/* Optional — cleaner geometric look */
-h1, h2, h3 {
-  letter-spacing: 0.03em;
+/* =========================
+   HEADER (SHARED)
+   ========================= */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--header-h);
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 }
 
-/* Remove default blue links */
-a {
+.logo {
+  height: 20px;
+}
+
+/* =========================
+   FOOTER (SHARED)
+   ========================= */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: var(--footer-h);
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.socials {
+  display: flex;
+  gap: 28px;
+}
+
+.socials img {
+  height: 22px;
+}
+
+.socials img:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   CTA BUTTON (SHARED)
+   Notes:
+   - Home page: starts hidden (opacity 0) and fades in via JS.
+   - P1 page: overrides opacity to 1 so it shows immediately.
+   ========================= */
+#fade {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 999px;
+  border: 3px solid rgba(179, 179, 179);
+
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  letter-spacing: 0.08em;
   text-decoration: none;
-  color: inherit;
+
+  opacity: 0;
+  transition:
+    opacity 0.6s ease,
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    border 0.25s ease;
 }
 
-/* Mobile safe-area compensation */
-@supports (-webkit-touch-callout: none) {
-  body { padding-bottom: env(safe-area-inset-bottom, 20px); }
+#fade:hover {
+  background: #b3b3b3;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   PAGE 2 — P1 IMAGE + BUTTON (SCROLLABLE + CENTERED)
+   IMPORTANT:
+   - This section intentionally overrides the home page's
+     overflow:hidden so the P1 page can scroll.
+   - Kept identical behavior to your current build.
+   ========================================================= */
+
+/* IMPORTANT: override global overflow:hidden */
+html,
+body.page {
+  height: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: #ffffff;
+}
+
+/* Page container */
+.image-page {
+  padding-top: calc(var(--header-h) + 50px);
+  padding-bottom: calc(var(--footer-h) + 50px);
+  display: flex;
+  justify-content: center;
+}
+
+/* Stack image + button */
+.product-center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 64px;
+  text-align: center;
+}
+
+/* If headings are used in the content area, remove default margins */
+.product-center h1,
+.product-center h2,
+.product-center h3,
+.product-center p {
+  margin: 0;
+}
+
+/* P1 image */
+.hero-bike {
+  width: min(1100px, 92vw);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* On P1 page, show the CTA immediately */
+body.page #fade {
+  opacity: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }

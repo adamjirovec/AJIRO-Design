@@ -2,29 +2,22 @@
 <html lang="en">
 <head>
   <!-- =======================================================
-       AJIRO — Home
+       AJIRO — P1
        Notes:
-       - Keep header/footer identical across pages for consistency.
-       - Background video is driven by HLS.js (script.js).
+       - Uses the same header/footer + shared stylesheet.
+       - Page-specific layout rules live under "PAGE 2" in style.css
        ======================================================= -->
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AJIRO</title>
+  <title>AJIRO — P1</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="images/AJIRO.svg" />
-  <link rel="alternate icon" href="images/AJIRO.png" type="image/png" />
-  <link rel="apple-touch-icon" href="images/AJIRO.png" />
-
-  <!-- SEO -->
-  <meta name="description" content="Electric Motorcycle, Carbon Fiber Motorcycle, Adam Jirovec Portfolio, AJIRO Design, P1 Motorcycle, Platform One" />
-  <meta name="author" content="Adam Jirovec" />
 </head>
 
-<body>
+<body class="page">
   <!-- =========================
        HEADER
        ========================= -->
@@ -33,28 +26,28 @@
   </header>
 
   <!-- =========================
-       HERO + BACKGROUND VIDEO
+       CONTENT
        ========================= -->
-  <div class="bg">
-    <!-- Video source is attached in script.js -->
-    <video id="video" muted autoplay loop playsinline></video>
+  <main class="image-page">
+    <div class="product-center">
+      <img
+        src="images/p1.png"
+        alt="AJIRO P1 Motorcycle"
+        class="hero-bike"
+      />
 
-    <div class="content">
-      <section class="hero">
-        <div class="container">
-          <!-- Typewriter text is controlled in script.js -->
-          <h1 id="type"></h1>
-
-          <!-- CTA button fades in via CSS+JS -->
-          <h2>
-            <a href="p1.html" id="fade" target="_blank" rel="noopener">
-              Explore the P1
-            </a>
-          </h2>
-        </div>
-      </section>
+      <!-- Reuses the same CTA styling (id="fade") as the home page -->
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSezwIZnt0RMoOdJHCUIELawCirlLzfunzHF4KGOkE1aSNw3-A/viewform?usp=header"
+        target="_blank"
+        rel="noopener"
+        id="fade"
+        class="static-button"
+      >
+        Fill Out the Interest Form
+      </a>
     </div>
-  </div>
+  </main>
 
   <!-- =========================
        FOOTER
@@ -72,9 +65,5 @@
       </a>
     </div>
   </footer>
-
-  <!-- HLS playback (required for .m3u8 on most browsers) -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="script.js"></script>
 </body>
 </html>
