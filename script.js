@@ -29,7 +29,7 @@ function initVideo() {
   if (!video) return;
 
   // Your new simple file:
-  video.src = "main_video/video.MP4";
+  video.src = "main_video/video_comp.MP4";
 
   // Ensure background-video autoplay works across browsers/iOS
   video.muted = true;
