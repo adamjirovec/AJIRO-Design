@@ -57,7 +57,7 @@ video {
   object-fit: cover;
   z-index: -1;
   pointer-events: none;
-  background: #000; /* fallback while video loads */
+  background: #ffffff; /* fallback while video loads */
 }
 
 .bg {
